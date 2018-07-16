@@ -211,6 +211,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	 */
 	public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) throws BeanDefinitionStoreException {
 		//获取在IoC容器初始化过程中设置的资源加载器
+		//FileSystemXmlApplication的时候，ResourceLoader就是自己，本身实现了接口，继承DefaultResourceLoader
 		ResourceLoader resourceLoader = getResourceLoader();
 		if (resourceLoader == null) {
 			throw new BeanDefinitionStoreException(
@@ -222,6 +223,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 			try {
 				//将指定位置的Bean定义资源文件解析为Spring IOC容器封装的资源
 				//加载多个指定位置的Bean定义资源文件
+				//参考AbstractXmlApplicationContext与ResourceLoader的uml用例图
 				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);
 				//委派调用其子类XmlBeanDefinitionReader的方法，实现加载功能
 				int loadCount = loadBeanDefinitions(resources);

@@ -494,10 +494,11 @@ public class BeanDefinitionParserDelegate {
 		//只是记录配置的class名字，不做实例化，对象的实例化在依赖注入时完成
 		String className = null;
 
-		//如果<Bean>元素中配置了parent属性，则获取parent属性的值
 		if (ele.hasAttribute(CLASS_ATTRIBUTE)) {
 			className = ele.getAttribute(CLASS_ATTRIBUTE).trim();
 		}
+
+		//如果<Bean>元素中配置了parent属性，则获取parent属性的值
 		String parent = null;
 		if (ele.hasAttribute(PARENT_ATTRIBUTE)) {
 			parent = ele.getAttribute(PARENT_ATTRIBUTE);
