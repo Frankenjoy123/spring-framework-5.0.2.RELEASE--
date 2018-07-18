@@ -600,7 +600,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object exposedObject = bean;
 		try {
 			//将Bean实例对象封装，并且Bean定义中配置的属性值赋值给实例对象
-			//依赖注入在这里实现
+			//依赖注入在这里实现,DI实现
 			populateBean(beanName, mbd, instanceWrapper);
 			//初始化Bean对象
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
