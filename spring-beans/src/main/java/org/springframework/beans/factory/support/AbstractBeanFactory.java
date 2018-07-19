@@ -233,9 +233,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		else {
 			// Fail if we're already creating this bean instance:
 			// We're assumably within a circular reference.
-			//缓存没有正在创建的单例模式Bean
-			//缓存中已经有已经创建的原型模式Bean
-			//但是由于循环引用的问题导致实例化对象失败
+			//如果有prototype类型的bean正在创建中，比如prototype bean之间的循环依赖
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
@@ -1062,6 +1060,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * @see #isPrototypeCurrentlyInCreation
 	 */
 	@SuppressWarnings("unchecked")
+	//原型模式bean创建完成后，回调用，
+	// 除掉set中的一个元素 ,final ThreadLocal<Object> prototypesCurrentlyInCreation
 	protected void afterPrototypeCreation(String beanName) {
 		Object curVal = this.prototypesCurrentlyInCreation.get();
 		if (curVal instanceof String) {

@@ -603,6 +603,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			//依赖注入在这里实现,DI实现
 			populateBean(beanName, mbd, instanceWrapper);
 			//初始化Bean对象
+			//在对 Bean 实例对象生成和依赖注入完成以后，开始对 Bean 实例对象
+			//进行初始化 ，为 Bean 实例对象应用 前置和BeanPostProcessor 后置处理器
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		}
 		catch (Throwable ex) {
@@ -1324,6 +1326,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 
 	//将Bean属性设置到生成的实例对象上
+	//DI实现
 	protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
 		if (bw == null) {
 			if (mbd.hasPropertyValues()) {
